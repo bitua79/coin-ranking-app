@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">CoinRankingUpdate</string>
+    <string name="app_name">CoinRanking</string>
+    <string name="mi_search">Search</string>
 </resources>

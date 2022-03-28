@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!--     TODO: use dynamic data using cryptocurrency variable  -->
+        <variable
+            name="cryptocurrency"
+            type="com.example.coinRankingUpdate.Cryptocurrency" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/spacing_8x"
+                android:layout_height="@dimen/spacing_8x"
+                android:layout_marginVertical="@dimen/spacing_5x"
+                android:layout_marginStart="@dimen/spacing_5x"
+                android:src="@drawable/ic_btc_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_btc_logo" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4x"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/lil_price"
+                app:layout_constraintStart_toEndOf="@id/iv_icon"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/spacing_8x"
+                    android:text="Bit Coin"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="Bit Coin" />
+
+                <TextView
+                    android:id="@+id/tv_abbreviation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/spacing_8x"
+                    android:text="BTC"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="BTC" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lil_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_bookmark"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="end"
+                    android:paddingHorizontal="@dimen/spacing_5x"
+                    android:text="$ 2,509.75"
+                    tools:text="$ 2,509.75" />
+
+                <TextView
+                    android:id="@+id/tv_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="end"
+                    android:paddingHorizontal="@dimen/spacing_5x"
+                    android:text="+9.77%"
+                    tools:text="+9.77%" />
+
+            </LinearLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_bookmark"
+                android:layout_width="@dimen/spacing_6x"
+                android:layout_height="@dimen/spacing_6x"
+                android:layout_margin="@dimen/spacing_4x"
+                android:src="@drawable/ic_bookmark_outline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/color_divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

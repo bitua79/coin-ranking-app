@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_primary">@color/indigo_500</color>
+    <color name="color_primary_variant">@color/indigo_300</color>
+    <color name="color_secondary">@color/blue_75</color>
+    <color name="color_secondary_variant">@color/blue_grey_200</color>
+    <color name="color_background">@color/blue_grey_950</color>
+    <color name="color_surface">@color/blue_grey_900</color>
+    <color name="color_error">@color/pink_300</color>
+
+    <!--  On colors  -->
+    <color name="color_on_primary">@color/blue_75</color>
+    <color name="color_on_secondary">@color/black</color>
+    <color name="color_on_background">@color/blue_75</color>
+    <color name="color_on_surface">@color/blue_75</color>
+    <color name="color_on_error">@color/black</color>
+    <color name="color_body_text">@color/blue_75</color>
+
+    <!--  component colors  -->
+    <color name="color_divider">@color/indigo_800</color>
+
+</resources>
