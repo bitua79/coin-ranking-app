@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">CoinRanking</string>
-    <string name="mi_search">Search</string>
+    <string name="label_search">Search</string>
+
+    <string name="label_bookmarks">Bookmarks</string>
+    <string name="label_home">Home</string>
+    <string name="label_exchanges">Exchanges</string>
+
+    <string name="label_action_open_drawer">Open</string>
+    <string name="label_action_close">Close</string>
+    <string name="title_night_mode">NightMode</string>
+
 </resources>
