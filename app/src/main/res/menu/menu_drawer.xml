@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/item_nightMode"
+        android:icon="@drawable/ic_moon"
+        android:title="@string/title_night_mode"
+        app:actionLayout="@layout/layout_switch_night_mode"
+
+        />
+    <item android:title="" />
+    <item android:title="" />
+    <item android:title="" />
+    <item android:title="" />
+    
+</menu>
