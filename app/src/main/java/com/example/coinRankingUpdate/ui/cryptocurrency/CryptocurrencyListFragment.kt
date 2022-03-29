@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.coinRankingUpdate.core.entity.Resource
-import com.example.coinRankingUpdate.data.model.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
