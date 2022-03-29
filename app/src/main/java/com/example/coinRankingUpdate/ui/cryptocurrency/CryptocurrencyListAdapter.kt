@@ -1,10 +1,11 @@
-package com.example.coinRankingUpdate
+package com.example.coinRankingUpdate.ui.cryptocurrency
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coinRankingUpdate.data.model.Cryptocurrency
 import com.example.coinRankingUpdate.databinding.ItemCryptocurrencyBinding
 
 class CryptocurrencyListAdapter(
@@ -27,7 +28,7 @@ class CryptocurrencyListAdapter(
 ) {
 
     // view holder class
-    inner class CryptocurrencyViewHolder(val binding: ItemCryptocurrencyBinding) :
+    inner class CryptocurrencyViewHolder(private val binding: ItemCryptocurrencyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
