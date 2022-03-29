@@ -20,6 +20,4 @@
     <!--  component colors  -->
     <color name="color_divider">@color/grey_900_alpha_8</color>
 
-    <color name="color_decrease">@color/deep_orange_600</color>
-    <color name="color_increase">@color/cyan_600</color>
 </resources>

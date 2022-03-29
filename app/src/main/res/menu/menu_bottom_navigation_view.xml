@@ -5,7 +5,7 @@
         android:icon = "@drawable/ic_bookmark"
         android:title = "@string/label_bookmarks" />
 
-    <item android:id="@+id/cryptocurrencyListFragment"
+    <item android:id="@+id/cryptocurrencyListPage"
         android:icon = "@drawable/ic_home"
         android:title = "@string/label_home" />
 

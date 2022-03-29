@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cryptocurrencyListFragment"
-        android:name="com.example.coinRankingUpdate.ui.cryptocurrency.CryptocurrencyListFragment"
+        android:name="com.example.coinRankingUpdate.CryptocurrencyListFragment"
         android:label="CryptocurrencyListFragment"
         tools:layout="@layout/fragment_cryptocurrency_list" />
 </navigation>

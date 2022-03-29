@@ -1,22 +1,16 @@
-package com.example.coinRankingUpdate.ui.cryptocurrency
+package com.example.coinRankingUpdate
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.example.coinRankingUpdate.core.entity.Resource
-import com.example.coinRankingUpdate.data.model.Cryptocurrency
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class CryptocurrencyListFragment : Fragment() {
 
     private lateinit var binding: FragmentCryptocurrencyListBinding
     private lateinit var listAdapter: CryptocurrencyListAdapter
-    private val viewModel: CryptocurrencyListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,13 +49,7 @@ class CryptocurrencyListFragment : Fragment() {
     }
 
     private fun initValuesRecyclerView() {
-        viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) {
-            if (it is Resource.Success) {
-                listAdapter.submitList(it.data.orEmpty())
-            } else
-                listAdapter.submitList(emptyList())
-        }
-        viewModel.refresh()
+        listAdapter.submitList(FakeData.list)
     }
 
     private fun onItemClicked(crypto: Cryptocurrency) {
