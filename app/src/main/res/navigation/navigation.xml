@@ -9,5 +9,18 @@
         android:id="@+id/cryptocurrencyListFragment"
         android:name="com.example.coinRankingUpdate.ui.cryptocurrency.CryptocurrencyListFragment"
         android:label="CryptocurrencyListFragment"
-        tools:layout="@layout/fragment_cryptocurrency_list" />
+        tools:layout="@layout/fragment_cryptocurrency_list">
+        <action
+            android:id="@+id/action_cryptocurrencyListFragment_to_cryptocurrencyDetailFragment"
+            app:destination="@id/cryptocurrencyDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cryptocurrencyDetailFragment"
+        android:name="com.example.coinRankingUpdate.ui.cryptocurrency.CryptocurrencyDetailFragment"
+        android:label="CryptocurrencyDetailFragment"
+        tools:layout="@layout/fragment_cryptocurrency_detail">
+        <argument
+            android:name="cryptocurrency"
+            app:argType="com.example.coinRankingUpdate.data.entity.Cryptocurrency" />
+    </fragment>
 </navigation>

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">CoinRanking</string>
     <string name="label_search">Search</string>
-
     <string name="label_bookmarks">Bookmarks</string>
     <string name="label_home">Home</string>
     <string name="label_exchanges">Exchanges</string>
@@ -9,5 +8,34 @@
     <string name="label_action_open_drawer">Open</string>
     <string name="label_action_close">Close</string>
     <string name="title_night_mode">NightMode</string>
+
+    <string name="label_price">Price</string>
+    <string name="label_price_to_usd">Price to USD</string>
+    <string name="label_price_to_btc">Price to BTC</string>
+    <string name="label_rank">Rank</string>
+    <string name="label_volume">24h volume</string>
+    <string name="label_market_cap">Market cap</string>
+    <string name="label_all_time">All-time high (daily avg)</string>
+
+    <string name="format_symbol_value_statistics">%s value statistics</string>
+    <string name="format_why_worthy">Why does %s have value</string>
+    <string name="format_about_exchange">About %s exchange </string>
+    <string name="format_what_is">What is %s</string>
+
+    <string name="format_btc">%s BTC</string>
+    <string name="format_billion">%s billion</string>
+    <string name="format_million">%s million</string>
+    <string name="format_k">%s k</string>
+
+    <string-array name="array_limitedTimes">
+        <item>24h</item>
+        <item>7d</item>
+        <item>30d</item>
+    </string-array>
+
+    <string-array name="array_comparisons">
+        <item>USD</item>
+        <item>BTC</item>
+    </string-array>
 
 </resources>

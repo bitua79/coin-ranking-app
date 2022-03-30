@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.coinRankingUpdate.core.entity.Resource
 import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
@@ -65,7 +66,11 @@ class CryptocurrencyListFragment : Fragment() {
     }
 
     private fun onItemClicked(crypto: Cryptocurrency) {
-        //TODO: implement click action
+        findNavController().navigate(
+            CryptocurrencyListFragmentDirections.actionCryptocurrencyListFragmentToCryptocurrencyDetailFragment(
+                crypto
+            )
+        )
     }
 
     private fun onItemBookmarked(crypto: Cryptocurrency) {
