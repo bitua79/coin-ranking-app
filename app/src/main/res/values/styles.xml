@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Navigation Drawer-->
+    <style name="Widget.MyTheme.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemTextAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="itemIconTint">?attr/colorPrimary</item>
+        <item name="itemIconPadding">@dimen/spacing_3x</item>
+        <item name="itemPadding">@dimen/spacing_base</item>
+        <item name="dividerPadding">@dimen/spacing_2x</item>
+    </style>
+
+    <!--  toolbar  -->
+    <style name="Widget.MyTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyTheme.Toolbar</item>
+    </style>
+
+    <style name="ThemeOverlay.MyTheme.Toolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:textColorPrimary">@color/color_on_primary</item>
+        <item name="android:textColorSecondary">@color/color_on_primary</item>
+    </style>
+
+    <!--  Spinner  -->
+    <style name="Widget.MyTheme.Spinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/selector_round_border</item>
+        <item name="android:minHeight">@dimen/spacing_12x</item>
+
+        <!--    popup    -->
+        <item name="android:popupBackground">@color/color_surface</item>
+        <item name="android:dropDownWidth">@dimen/spacing_21x</item>
+        <item name="android:dropDownSelector">@color/color_spinner_background</item>
+    </style>
+</resources>
