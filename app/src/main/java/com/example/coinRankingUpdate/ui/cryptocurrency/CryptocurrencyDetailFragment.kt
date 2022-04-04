@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.annotation.ArrayRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.coinRankingUpdate.R
-import com.example.coinRankingUpdate.core.entity.Resource
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -86,25 +84,28 @@ class CryptocurrencyDetailFragment : Fragment() {
         viewModel.setId(args.cryptocurrency.uuid)
         viewModel.cryptocurrencyResource.observe(viewLifecycleOwner) { response ->
             //we can use handle method to handle resource or handle it manually
-            when (response) {
-                is Resource.Success -> {
-                    binding.cryptocurrency = response.data
-                    endLoad()
-                }
-                is Resource.Loading -> {
-                    startLoad()
-                }
-                is Resource.Error -> {
-                    Toast.makeText(requireContext(), "get information failed!", Toast.LENGTH_SHORT)
-                        .show()
-                    endLoad()
-                }
-            }
-//            val data = response.handle(
-//                "CryptocurrencyDetail",
-//                requireContext(),
-//                "error getting cryptocurrency detail"
-//            )
+//            when (response) {
+//                is Resource.Success -> {
+//                    binding.cryptocurrency = response.data
+//                    endLoad()
+//                }
+//                is Resource.Loading -> {
+//                    startLoad()
+//                }
+//                is Resource.Error -> {
+//                    Toast.makeText(requireContext(), "get information failed!", Toast.LENGTH_SHORT)
+//                        .show()
+//                    endLoad()
+//                }
+//            }
+            val data = response.handle(
+                tag = "CRYPTOCURRENCY_DETAIL",
+                context = requireContext(),
+                errMsg = "failed to load cryptocurrency",
+                startLoad = { startLoad() },
+                endLoad = { endLoad() }
+            )
+            data?.let { binding.cryptocurrency = it }
         }
         viewModel.refresh()
     }
