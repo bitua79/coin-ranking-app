@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.coinRankingUpdate.core.entity.Resource
 import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,22 +56,14 @@ class CryptocurrencyListFragment : Fragment() {
 
     private fun initValuesRecyclerView() {
         viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) { response ->
-            var list = emptyList<Cryptocurrency>()
-            when (response) {
-                is Resource.Success -> {
-                    list = response.data.orEmpty()
-                    endLoad()
-                }
-                is Resource.Loading -> {
-                    startLoad()
-                }
-                is Resource.Error -> {
-                    Toast.makeText(requireContext(), "get information failed!", Toast.LENGTH_SHORT)
-                        .show()
-                    endLoad()
-                }
-            }
-            listAdapter.submitList(list)
+            val data = response.handle(
+                tag = "CRYPTOCURRENCY_LIST",
+                context = requireContext(),
+                errMsg = "failed to load cryptocurrencies",
+                startLoad = { startLoad() },
+                endLoad = { endLoad() }
+            )
+            listAdapter.submitList(data.orEmpty())
         }
         viewModel.refresh()
     }
