@@ -6,4 +6,6 @@ import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 
 interface CryptocurrencyRepository {
     fun getAllCryptocurrencies(): LiveData<Resource<List<Cryptocurrency>>>
+
+    fun getCryptocurrency( id: String): LiveData<Resource<Cryptocurrency>>
 }

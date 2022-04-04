@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.annotation.ArrayRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.coinRankingUpdate.R
+import com.example.coinRankingUpdate.core.entity.Resource
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +22,8 @@ class CryptocurrencyDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCryptocurrencyDetailBinding
     private val args by navArgs<CryptocurrencyDetailFragmentArgs>()
+
+    private val viewModel: CryptocurrencyDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,14 +35,12 @@ class CryptocurrencyDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.cryptocurrency = args.cryptocurrency
-        setupSpinners()
-    }
 
-    private fun setupSpinners() {
+        binding.cryptocurrency = args.cryptocurrency
+
         setSpinner(
             requireActivity(),
-            binding.spinnerCryptoTime,
+            binding.spinnerTime,
             R.array.array_limitedTimes
         ) {
             //TODO:filter
@@ -45,9 +48,11 @@ class CryptocurrencyDetailFragment : Fragment() {
 
         setSpinner(
             requireActivity(),
-            binding.spinnerCryptoComparison,
+            binding.spinnerComparison,
             R.array.array_comparisons
         ) { item -> binding.isBtc = item == "BTC" }
+
+        setValue()
     }
 
     private fun setSpinner(
@@ -77,4 +82,45 @@ class CryptocurrencyDetailFragment : Fragment() {
         }
     }
 
+    fun setValue() {
+        viewModel.setId(args.cryptocurrency.uuid)
+        viewModel.cryptocurrencyResource.observe(viewLifecycleOwner) { response ->
+            //we can use handle method to handle resource or handle it manually
+            when (response) {
+                is Resource.Success -> {
+                    binding.cryptocurrency = response.data
+                    endLoad()
+                }
+                is Resource.Loading -> {
+                    startLoad()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), "get information failed!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+//            val data = response.handle(
+//                "CryptocurrencyDetail",
+//                requireContext(),
+//                "error getting cryptocurrency detail"
+//            )
+        }
+        viewModel.refresh()
+    }
+
+    fun startLoad() {
+        with(binding) {
+            tvIntro.visibility = View.GONE
+            tvIntroTitle.visibility = View.GONE
+            progressbar.visibility = View.VISIBLE
+        }
+    }
+
+    fun endLoad() {
+        with(binding) {
+            tvIntro.visibility = View.VISIBLE
+            tvIntroTitle.visibility = View.VISIBLE
+            progressbar.visibility = View.GONE
+        }
+    }
 }

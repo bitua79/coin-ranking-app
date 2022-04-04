@@ -91,20 +91,20 @@
                 app:layout_constraintTop_toTopOf="@id/gl_logo_center" />
 
             <Spinner
-                android:id="@+id/spinner_crypto_comparison"
+                android:id="@+id/spinner_comparison"
                 style="@style/Widget.MyTheme.Spinner"
                 android:layout_width="@dimen/spacing_21x"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/spacing_base"
-                android:singleLine="true"
                 android:overlapAnchor="false"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
             <Spinner
-                android:id="@+id/spinner_crypto_time"
+                android:id="@+id/spinner_time"
                 style="@style/Widget.MyTheme.Spinner"
                 android:layout_width="@dimen/spacing_21x"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                 android:overlapAnchor="false"
                 android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/spinner_crypto_comparison" />
+                app:layout_constraintEnd_toStartOf="@+id/spinner_comparison" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_price"
@@ -141,7 +141,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
-            android:id="@+id/sv_overlay_view"
+            android:id="@+id/sv_overview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/spacing_12x"
@@ -427,8 +427,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider_market_cap" />
 
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_14x"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_all_time_avg_date" />
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/crypto_intro_title"
+                    android:id="@+id/tv_intro_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_4x"
@@ -445,7 +455,7 @@
                     android:layout_height="wrap_content"
                     android:textIsSelectable="true"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/crypto_intro_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_intro_title"
                     app:renderHtml="@{cryptocurrency.description}"
                     tools:text="Bitcoin is the first digital currency that allows users to send and receive money, without the interference of a central bank or government. Instead, a network of thousands of peers is controlling the transactions; a decentralized system." />
 

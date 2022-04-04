@@ -1,17 +1,12 @@
 package com.example.coinRankingUpdate.data.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
-import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.coinRankingUpdate.core.NetworkBoundResource
 import com.example.coinRankingUpdate.core.entity.APIResponse
 import com.example.coinRankingUpdate.core.entity.Resource
-import com.example.coinRankingUpdate.core.utils.EmptyResult
-import com.example.coinRankingUpdate.core.utils.ErrorResult
-import com.example.coinRankingUpdate.core.utils.SuccessResult
-import com.example.coinRankingUpdate.core.utils.safeCall
-import com.example.coinRankingUpdate.data.entity.Cryptocurrencies
+import com.example.coinRankingUpdate.data.entity.CryptocurrenciesResponse
 import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyResponse
 import com.example.coinRankingUpdate.data.local.CryptocurrenciesDao
 import com.example.coinRankingUpdate.data.remote.WebService
 import retrofit2.Response
@@ -23,8 +18,9 @@ class DefaultCryptocurrencyRepository @Inject constructor(
 ) : CryptocurrencyRepository {
 
     override fun getAllCryptocurrencies(): LiveData<Resource<List<Cryptocurrency>>> =
-        object : NetworkBoundResource<List<Cryptocurrency>, APIResponse<Cryptocurrencies>>() {
-            override suspend fun saveCallResult(response: APIResponse<Cryptocurrencies>) {
+        object :
+            NetworkBoundResource<List<Cryptocurrency>, APIResponse<CryptocurrenciesResponse>>() {
+            override suspend fun saveCallResult(response: APIResponse<CryptocurrenciesResponse>) {
                 dao.insertAllCryptocurrencies(response.data?.cryptocurrencies.orEmpty())
             }
 
@@ -32,32 +28,55 @@ class DefaultCryptocurrencyRepository @Inject constructor(
                 return dao.getAllCryptocurrencies()
             }
 
-            override suspend fun createCall(): Response<APIResponse<Cryptocurrencies>> {
+            override suspend fun createCall(): Response<APIResponse<CryptocurrenciesResponse>> {
                 return service.getAllCryptocurrencies()
             }
 
         }.asLiveData()
 
-//    override suspend fun getAllCryptocurrencies(): LiveData<Resource<List<Cryptocurrency>>> {
-//
-//        when (val response = safeCall { service.getAllCryptocurrencies() }) {
-//            is SuccessResult -> {
-//                return liveData {
-//                    emit(Resource.Success(response.body.data?.cryptocurrencies.orEmpty()))
-//                }
-//            }
-//            is ErrorResult -> {
-//                return liveData {
-//                    emit(Resource.Error(response.errorMessage, emptyList()))
-//                }
-//            }
-//
-//            is EmptyResult -> {
-//                return liveData {
-//                    emit(Resource.Success(emptyList()))
-//                }
-//
-//            }
-//        }
-//    }
+
+    override fun getCryptocurrency(
+        id: String
+    ): LiveData<Resource<Cryptocurrency>> =
+        object :
+            NetworkBoundResource<Cryptocurrency, APIResponse<CryptocurrencyResponse>>() {
+            override suspend fun saveCallResult(response: APIResponse<CryptocurrencyResponse>) {
+                response.data?.cryptocurrency?.let {
+                    dao.update(it)
+                }
+            }
+
+            override fun loadFromDb(): LiveData<Cryptocurrency> {
+                return dao.getCryptocurrencyById(id)
+            }
+
+            override suspend fun createCall(): Response<APIResponse<CryptocurrencyResponse>> {
+                return service.getCryptocurrency(id)
+            }
+
+        }.asLiveData()
+
+    // when we don't hae database and we don't want to use network bound resource
+/*    override suspend fun getAllCryptocurrencies(): LiveData<Resource<List<Cryptocurrency>>> {
+
+        when (val response = safeCall { service.getAllCryptocurrencies() }) {
+            is SuccessResult -> {
+                return liveData {
+                    emit(Resource.Success(response.body.data?.cryptocurrencies.orEmpty()))
+                }
+            }
+            is ErrorResult -> {
+                return liveData {
+                    emit(Resource.Error(response.errorMessage, emptyList()))
+                }
+            }
+
+            is EmptyResult -> {
+                return liveData {
+                    emit(Resource.Success(emptyList()))
+                }
+
+            }
+        }
+    }*/
 }
