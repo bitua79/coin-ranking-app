@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -56,11 +57,23 @@ class CryptocurrencyListFragment : Fragment() {
     }
 
     private fun initValuesRecyclerView() {
-        viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) {
-            if (it is Resource.Success) {
-                listAdapter.submitList(it.data.orEmpty())
-            } else
-                listAdapter.submitList(emptyList())
+        viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) { response ->
+            var list = emptyList<Cryptocurrency>()
+            when (response) {
+                is Resource.Success -> {
+                    list = response.data.orEmpty()
+                    endLoad()
+                }
+                is Resource.Loading -> {
+                    startLoad()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), "get information failed!", Toast.LENGTH_SHORT)
+                        .show()
+                    endLoad()
+                }
+            }
+            listAdapter.submitList(list)
         }
         viewModel.refresh()
     }
@@ -75,5 +88,19 @@ class CryptocurrencyListFragment : Fragment() {
 
     private fun onItemBookmarked(crypto: Cryptocurrency) {
         //TODO: implement bookmark action
+    }
+
+    private fun startLoad() {
+        with(binding) {
+            rvCryptocurrency.visibility = View.GONE
+            progressbar.visibility = View.VISIBLE
+        }
+    }
+
+    private fun endLoad() {
+        with(binding) {
+            rvCryptocurrency.visibility = View.VISIBLE
+            progressbar.visibility = View.GONE
+        }
     }
 }
