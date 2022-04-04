@@ -97,6 +97,7 @@ class CryptocurrencyDetailFragment : Fragment() {
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), "get information failed!", Toast.LENGTH_SHORT)
                         .show()
+                    endLoad()
                 }
             }
 //            val data = response.handle(
@@ -108,7 +109,7 @@ class CryptocurrencyDetailFragment : Fragment() {
         viewModel.refresh()
     }
 
-    fun startLoad() {
+    private fun startLoad() {
         with(binding) {
             tvIntro.visibility = View.GONE
             tvIntroTitle.visibility = View.GONE
@@ -116,7 +117,7 @@ class CryptocurrencyDetailFragment : Fragment() {
         }
     }
 
-    fun endLoad() {
+    private fun endLoad() {
         with(binding) {
             tvIntro.visibility = View.VISIBLE
             tvIntroTitle.visibility = View.VISIBLE
