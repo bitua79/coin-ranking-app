@@ -25,6 +25,7 @@ sealed class Resource<T>(
             }
             is Loading -> {
                 Log.e(tag, "Loading resources ...")
+                Toast.makeText(context, "Please wait ...", Toast.LENGTH_SHORT).show()
                 this.data
             }
         }
