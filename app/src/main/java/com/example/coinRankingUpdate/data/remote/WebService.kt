@@ -19,6 +19,6 @@ interface WebService {
     @GET("coin/{uuid}")
     suspend fun getCryptocurrency(
         @Path("uuid") uuid: String,
-//        @Query("timePeriod") timePeriod: String
+        @Query("timePeriod") timePeriod: String
     ): Response<APIResponse<CryptocurrencyResponse>>
 }

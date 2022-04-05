@@ -41,7 +41,7 @@ class CryptocurrencyDetailFragment : Fragment() {
             binding.spinnerTime,
             R.array.array_limitedTimes
         ) {
-            //TODO:filter
+            viewModel.setTimePeriod(it)
         }
 
         setSpinner(

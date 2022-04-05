@@ -13,5 +13,8 @@ interface CryptocurrencyRepository {
         orderDirection: OrderDirection
     ): LiveData<Resource<List<Cryptocurrency>>>
 
-    fun getCryptocurrency( id: String): LiveData<Resource<Cryptocurrency>>
+    fun getCryptocurrency(
+        id: String,
+        timePeriod: String
+    ): LiveData<Resource<Cryptocurrency>>
 }

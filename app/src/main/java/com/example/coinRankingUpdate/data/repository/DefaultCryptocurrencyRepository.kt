@@ -50,7 +50,8 @@ class DefaultCryptocurrencyRepository @Inject constructor(
 
 
     override fun getCryptocurrency(
-        id: String
+        id: String,
+        timePeriod: String
     ): LiveData<Resource<Cryptocurrency>> =
         object :
             NetworkBoundResource<Cryptocurrency, APIResponse<CryptocurrencyResponse>>() {
@@ -65,7 +66,7 @@ class DefaultCryptocurrencyRepository @Inject constructor(
             }
 
             override suspend fun createCall(): Response<APIResponse<CryptocurrencyResponse>> {
-                return service.getCryptocurrency(id)
+                return service.getCryptocurrency(id, timePeriod)
             }
 
         }.asLiveData()
