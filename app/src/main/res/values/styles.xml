@@ -30,4 +30,17 @@
         <item name="android:dropDownWidth">@dimen/spacing_21x</item>
         <item name="android:dropDownSelector">@color/color_spinner_background</item>
     </style>
+
+    <!--  chip  -->
+    <style name="Widget.MyTheme.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:minHeight">@dimen/spacing_16x</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="checkedIconTint">?attr/colorOnBackground</item>
+        <item name="closeIconEndPadding">@dimen/spacing_4x</item>
+        <item name="chipIconSize">@dimen/spacing_4x</item>
+        <item name="closeIconTint">?attr/colorOnBackground</item>
+        <item name="textStartPadding">@dimen/spacing_4x</item>
+        <item name="chipBackgroundColor">@color/color_spinner_background</item>
+    </style>
 </resources>

@@ -6,13 +6,14 @@ import com.example.coinRankingUpdate.data.entity.CryptocurrencyResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface WebService {
     @GET("coins")
     suspend fun getAllCryptocurrencies(
-//        @Query("timePeriod") timePeriod: String,
-//        @Query("orderBy") orderBy: String,
-//        @Query("orderDirection") orderDirection: String
+        @Query("timePeriod") timePeriod: String,
+        @Query("orderBy") orderBy: String,
+        @Query("orderDirection") orderDirection: String
     ): Response<APIResponse<CryptocurrenciesResponse>>
 
     @GET("coin/{uuid}")

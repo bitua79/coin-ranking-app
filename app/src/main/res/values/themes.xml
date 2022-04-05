@@ -35,6 +35,8 @@
         <item name="toolbarStyle">@style/Widget.MyTheme.Toolbar</item>
         <item name="navigationViewStyle">@style/Widget.MyTheme.NavigationView</item>
         <item name="spinnerStyle">@style/Widget.MyTheme.Spinner</item>
+        <item name="chipStyle">@style/Widget.MyTheme.Chip</item>
+
     </style>
 
     <style name="Base.Theme.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">

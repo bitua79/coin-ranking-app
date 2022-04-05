@@ -1,6 +1,7 @@
 package com.example.coinRankingUpdate.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.coinRankingUpdate.core.NetworkBoundResource
 import com.example.coinRankingUpdate.core.entity.APIResponse
 import com.example.coinRankingUpdate.core.entity.Resource
@@ -9,6 +10,8 @@ import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 import com.example.coinRankingUpdate.data.entity.CryptocurrencyResponse
 import com.example.coinRankingUpdate.data.local.CryptocurrenciesDao
 import com.example.coinRankingUpdate.data.remote.WebService
+import com.example.coinRankingUpdate.ui.cryptocurrency.OrderBy
+import com.example.coinRankingUpdate.ui.cryptocurrency.OrderDirection
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -17,7 +20,11 @@ class DefaultCryptocurrencyRepository @Inject constructor(
     private val dao: CryptocurrenciesDao
 ) : CryptocurrencyRepository {
 
-    override fun getAllCryptocurrencies(): LiveData<Resource<List<Cryptocurrency>>> =
+    override fun getAllCryptocurrencies(
+        timePeriod: String,
+        orderBy: OrderBy,
+        orderDirection: OrderDirection
+    ): LiveData<Resource<List<Cryptocurrency>>> =
         object :
             NetworkBoundResource<List<Cryptocurrency>, APIResponse<CryptocurrenciesResponse>>() {
             override suspend fun saveCallResult(response: APIResponse<CryptocurrenciesResponse>) {
@@ -25,11 +32,18 @@ class DefaultCryptocurrencyRepository @Inject constructor(
             }
 
             override fun loadFromDb(): LiveData<List<Cryptocurrency>> {
-                return dao.getAllCryptocurrencies()
+                val query = SimpleSQLiteQuery(
+                    "SELECT * FROM tbl_cryptocurrency ORDER BY CAST(${orderBy.value} AS REAL) ${orderDirection.value} "
+                )
+                return dao.getAllCryptocurrencies(query)
             }
 
             override suspend fun createCall(): Response<APIResponse<CryptocurrenciesResponse>> {
-                return service.getAllCryptocurrencies()
+                return service.getAllCryptocurrencies(
+                    timePeriod,
+                    orderBy.value,
+                    orderDirection.value
+                )
             }
 
         }.asLiveData()

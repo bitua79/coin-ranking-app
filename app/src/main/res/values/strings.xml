@@ -26,6 +26,7 @@
     <string name="format_billion">%s billion</string>
     <string name="format_million">%s million</string>
     <string name="format_k">%s k</string>
+    <string name="label_cryptocurrency">cryptocurrency</string>
 
     <string-array name="array_limitedTimes">
         <item>24h</item>
@@ -38,4 +39,15 @@
         <item>BTC</item>
     </string-array>
 
+    <string-array name="times">
+        <item>3h</item>
+        <item>24h</item>
+        <item>7d</item>
+        <item>30d</item>
+        <item>3m</item>
+        <item>1y</item>
+        <item>3y</item>
+        <item>5y</item>
+
+    </string-array>
 </resources>
