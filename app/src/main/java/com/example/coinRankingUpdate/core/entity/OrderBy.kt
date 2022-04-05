@@ -1,4 +1,4 @@
-package com.example.coinRankingUpdate.ui.cryptocurrency
+package com.example.coinRankingUpdate.core.entity
 
 enum class OrderBy(val value: String) {
     MarketCap("marketCap"),

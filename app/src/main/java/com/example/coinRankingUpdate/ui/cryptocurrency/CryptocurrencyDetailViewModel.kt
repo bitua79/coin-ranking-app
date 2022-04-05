@@ -16,12 +16,12 @@ class CryptocurrencyDetailViewModel @Inject constructor(
     private val getCryptocurrency: GetCryptocurrency
 ) : BaseViewModel() {
 
+    private var id: String = ""
     private val timePeriod: MutableLiveData<String> = MutableLiveData()
 
-    private var uuid: String = ""
     val cryptocurrencyResource: LiveData<Resource<Cryptocurrency>> = refreshing.switchMap {
         liveData {
-            emitSource(getCryptocurrency(uuid, timePeriod.value?:"24h"))
+            emitSource(getCryptocurrency(id, timePeriod.value ?: "24h"))
         }
     }
 
@@ -31,7 +31,7 @@ class CryptocurrencyDetailViewModel @Inject constructor(
     }
 
     fun setId(id: String) {
-        uuid = id
+        this.id = id
     }
 
 }

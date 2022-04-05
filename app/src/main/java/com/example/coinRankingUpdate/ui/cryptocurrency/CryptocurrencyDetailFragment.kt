@@ -1,18 +1,17 @@
 package com.example.coinRankingUpdate.ui.cryptocurrency
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.annotation.ArrayRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.coinRankingUpdate.R
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyDetailBinding
+import com.example.coinRankingUpdate.ui.gone
+import com.example.coinRankingUpdate.ui.setSpinner
+import com.example.coinRankingUpdate.ui.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,54 +49,12 @@ class CryptocurrencyDetailFragment : Fragment() {
             R.array.array_comparisons
         ) { item -> binding.isBtc = item == "BTC" }
 
-        setValue()
+        collectResult()
     }
 
-    private fun setSpinner(
-        context: Context,
-        spinner: android.widget.Spinner,
-        @ArrayRes res: Int,
-        onItemSelected: (String) -> Unit
-    ) {
-        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
-            context,
-            res,
-            R.layout.spinner_header
-        )
-        adapter.setDropDownViewResource(R.layout.spinner_list_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                pos: Int,
-                id: Long
-            ) {
-                onItemSelected(parent.getItemAtPosition(pos).toString())
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-    }
-
-    fun setValue() {
+    private fun collectResult() {
         viewModel.setId(args.cryptocurrency.uuid)
         viewModel.cryptocurrencyResource.observe(viewLifecycleOwner) { response ->
-            //we can use handle method to handle resource or handle it manually
-//            when (response) {
-//                is Resource.Success -> {
-//                    binding.cryptocurrency = response.data
-//                    endLoad()
-//                }
-//                is Resource.Loading -> {
-//                    startLoad()
-//                }
-//                is Resource.Error -> {
-//                    Toast.makeText(requireContext(), "get information failed!", Toast.LENGTH_SHORT)
-//                        .show()
-//                    endLoad()
-//                }
-//            }
             val data = response.handle(
                 tag = "CRYPTOCURRENCY_DETAIL",
                 context = requireContext(),
@@ -112,17 +69,17 @@ class CryptocurrencyDetailFragment : Fragment() {
 
     private fun startLoad() {
         with(binding) {
-            tvIntro.visibility = View.GONE
-            tvIntroTitle.visibility = View.GONE
-            progressbar.visibility = View.VISIBLE
+            tvIntro.gone()
+            tvIntroTitle.gone()
+            progressbar.visible()
         }
     }
 
     private fun endLoad() {
         with(binding) {
-            tvIntro.visibility = View.VISIBLE
-            tvIntroTitle.visibility = View.VISIBLE
-            progressbar.visibility = View.GONE
+            tvIntro.visible()
+            tvIntroTitle.visible()
+            progressbar.gone()
         }
     }
 }
