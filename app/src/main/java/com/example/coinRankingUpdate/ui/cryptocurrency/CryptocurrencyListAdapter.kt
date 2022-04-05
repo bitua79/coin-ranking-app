@@ -64,10 +64,6 @@ class CryptocurrencyListAdapter(
         return currentList.size
     }
 
-    fun clear() {
-        submitList(null)
-    }
-
     public override fun getItem(position: Int): Cryptocurrency {
         return currentList[position]
     }

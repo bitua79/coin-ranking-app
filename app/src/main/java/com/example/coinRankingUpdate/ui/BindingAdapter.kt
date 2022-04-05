@@ -71,16 +71,15 @@ fun inUnit(view: TextView, price: String?) {
 @BindingAdapter(value = ["priceChangeCrypto", "priceChangeIsBtc"], requireAll = true)
 fun priceChange(view: TextView, crypto: Cryptocurrency, isBtc: Boolean) {
     with(crypto) {
-        val price = (if (isBtc) crypto.btcPrice else crypto.price).toDouble()
-        val change = crypto.change.toDouble()
+        val price = (if (isBtc) btcPrice else price).toDouble()
+        val change = change.toDouble()
         var pChange = price * change / (change + 1.0)
         pChange = abs(pChange)
         val decimalFormat = DecimalFormat("#,##0.00")
-        view.text = if (isBtc) {
-            "${decimalFormat.format(pChange)} BTC"
-        } else {
-            "$ ${decimalFormat.format(pChange)}"
-        }
+        var text = decimalFormat.format(pChange)
+        if (isBtc)
+            text += " BTC"
+        view.text = text
     }
 }
 

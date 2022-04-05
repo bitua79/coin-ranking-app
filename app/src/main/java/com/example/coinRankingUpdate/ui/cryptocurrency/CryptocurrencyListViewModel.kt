@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.example.coinRankingUpdate.core.BaseViewModel
+import com.example.coinRankingUpdate.core.entity.OrderBy
+import com.example.coinRankingUpdate.core.entity.OrderDirection
 import com.example.coinRankingUpdate.core.entity.Resource
 import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 import com.example.coinRankingUpdate.domain.GetAllCryptocurrencies
@@ -34,7 +36,6 @@ class CryptocurrencyListViewModel @Inject constructor(
         refresh()
     }
 
-    // Request to server when time period is changed
     fun setTimePeriod(timePeriod: String) {
         this.timePeriod.value = timePeriod
         refresh()

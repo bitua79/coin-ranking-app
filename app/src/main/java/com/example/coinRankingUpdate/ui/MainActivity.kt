@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val topLevelMenuItems = setOf(
         R.id.cryptocurrencyListFragment
+        //TODO: add bookmark page and search page to bottom navigation
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         setupDrawerLayout()
     }
 
-    //Dark mode setting
     private fun setDarkModeAction() {
         btnSwitchTheme =
             binding.navigationView.menu.findItem(R.id.item_nightMode).actionView as SwitchMaterial
@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Drawer layout setting
     private fun setupDrawerLayout() {
         drawerToggle = ActionBarDrawerToggle(
             this,
@@ -69,7 +68,6 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(drawerToggle)
     }
 
-    // Setup nav controller
     private fun setupNavController() {
         //1- get navController from navHostFragment
         val navHostFragment =
@@ -80,7 +78,6 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
     }
 
-    // Set toolbar icon action
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return super.onCreateOptionsMenu(menu)
@@ -95,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    //Setup toolbar
+    //TODO: fix toolbar
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
 

@@ -9,9 +9,10 @@ import javax.inject.Inject
 class GetCryptocurrency @Inject constructor(
     private val repo: CryptocurrencyRepository
 ) {
-    operator fun invoke(id: String
-    ,        timePeriod: String
+    operator fun invoke(
+        id: String,
+        timePeriod: String
     ): LiveData<Resource<Cryptocurrency>> {
-        return repo.getCryptocurrency(id,timePeriod)
+        return repo.getCryptocurrency(id, timePeriod)
     }
 }

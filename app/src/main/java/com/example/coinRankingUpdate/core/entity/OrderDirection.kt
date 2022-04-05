@@ -1,4 +1,4 @@
-package com.example.coinRankingUpdate.ui.cryptocurrency
+package com.example.coinRankingUpdate.core.entity
 
 enum class OrderDirection(val value: String) {
     ASC("asc"),

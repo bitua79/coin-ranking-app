@@ -1,21 +1,21 @@
 package com.example.coinRankingUpdate.ui.cryptocurrency
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.annotation.ArrayRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coinRankingUpdate.R
+import com.example.coinRankingUpdate.core.entity.OrderDirection
 import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
+import com.example.coinRankingUpdate.ui.gone
+import com.example.coinRankingUpdate.ui.setSpinner
+import com.example.coinRankingUpdate.ui.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,6 +42,13 @@ class CryptocurrencyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
+        collectResult()
+    }
+
+    private fun initViews(){
+        ascIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up)
+        descIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down)
         setupAdapter()
         setUpChips()
         setSpinner(
@@ -52,13 +59,8 @@ class CryptocurrencyListFragment : Fragment() {
             viewModel.setTimePeriod(it)
         }
         setupRecyclerview()
-        initValuesRecyclerView()
-
-        ascIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up)
-        descIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down)
     }
 
-    //Setup adapter
     private fun setupAdapter() {
         listAdapter = CryptocurrencyListAdapter(
             onItemClicked = {
@@ -68,6 +70,25 @@ class CryptocurrencyListFragment : Fragment() {
                 onItemBookmarked(it)
             }
         )
+    }
+
+    private fun onItemClicked(crypto: Cryptocurrency) {
+        findNavController().navigate(
+            CryptocurrencyListFragmentDirections.actionCryptocurrencyListFragmentToCryptocurrencyDetailFragment(
+                crypto
+            )
+        )
+    }
+
+    private fun onItemBookmarked(crypto: Cryptocurrency) {
+        //TODO: implement bookmark action
+    }
+
+    private fun setupRecyclerview() {
+        with(binding.rvCryptocurrency) {
+            setHasFixedSize(true)
+            adapter = listAdapter
+        }
     }
 
     private fun setUpChips() {
@@ -97,41 +118,7 @@ class CryptocurrencyListFragment : Fragment() {
         }
     }
 
-    private fun setSpinner(
-        context: Context,
-        spinner: android.widget.Spinner,
-        @ArrayRes res: Int,
-        onItemSelected: (String) -> Unit
-    ) {
-        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
-            context,
-            res,
-            R.layout.spinner_header
-        )
-        adapter.setDropDownViewResource(R.layout.spinner_list_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                pos: Int,
-                id: Long
-            ) {
-                onItemSelected(parent.getItemAtPosition(pos).toString())
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-    }
-
-    private fun setupRecyclerview() {
-        with(binding.rvCryptocurrency) {
-            setHasFixedSize(true)
-            adapter = listAdapter
-        }
-    }
-
-    private fun initValuesRecyclerView() {
+    private fun collectResult() {
         viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) { response ->
             val data = response.handle(
                 tag = "CRYPTOCURRENCY_LIST",
@@ -146,29 +133,17 @@ class CryptocurrencyListFragment : Fragment() {
         viewModel.refresh()
     }
 
-    private fun onItemClicked(crypto: Cryptocurrency) {
-        findNavController().navigate(
-            CryptocurrencyListFragmentDirections.actionCryptocurrencyListFragmentToCryptocurrencyDetailFragment(
-                crypto
-            )
-        )
-    }
-
-    private fun onItemBookmarked(crypto: Cryptocurrency) {
-        //TODO: implement bookmark action
-    }
-
     private fun startLoad() {
         with(binding) {
-            rvCryptocurrency.visibility = View.GONE
-            progressbar.visibility = View.VISIBLE
+            rvCryptocurrency.gone()
+            progressbar.visible()
         }
     }
 
     private fun endLoad() {
         with(binding) {
-            rvCryptocurrency.visibility = View.VISIBLE
-            progressbar.visibility = View.GONE
+            rvCryptocurrency.visible()
+            progressbar.gone()
         }
     }
 }
