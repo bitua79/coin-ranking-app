@@ -1,6 +1,7 @@
 package com.example.coinRankingUpdate.ui.cryptocurrency
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.example.coinRankingUpdate.core.BaseViewModel
@@ -15,11 +16,18 @@ class CryptocurrencyDetailViewModel @Inject constructor(
     private val getCryptocurrency: GetCryptocurrency
 ) : BaseViewModel() {
 
+    private val timePeriod: MutableLiveData<String> = MutableLiveData()
+
     private var uuid: String = ""
     val cryptocurrencyResource: LiveData<Resource<Cryptocurrency>> = refreshing.switchMap {
         liveData {
-            emitSource(getCryptocurrency(uuid))
+            emitSource(getCryptocurrency(uuid, timePeriod.value?:"24h"))
         }
+    }
+
+    fun setTimePeriod(timePeriod: String) {
+        this.timePeriod.value = timePeriod
+        refresh()
     }
 
     fun setId(id: String) {
