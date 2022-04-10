@@ -1,17 +1,22 @@
 package com.example.coinRankingUpdate.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.coinRankingUpdate.core.NetworkBoundResource
 import com.example.coinRankingUpdate.core.entity.APIResponse
+import com.example.coinRankingUpdate.core.entity.OrderBy
+import com.example.coinRankingUpdate.core.entity.OrderDirection
 import com.example.coinRankingUpdate.core.entity.Resource
+import com.example.coinRankingUpdate.core.utils.EmptyResult
+import com.example.coinRankingUpdate.core.utils.ErrorResult
+import com.example.coinRankingUpdate.core.utils.SuccessResult
+import com.example.coinRankingUpdate.core.utils.safeCall
 import com.example.coinRankingUpdate.data.entity.CryptocurrenciesResponse
 import com.example.coinRankingUpdate.data.entity.Cryptocurrency
 import com.example.coinRankingUpdate.data.entity.CryptocurrencyResponse
 import com.example.coinRankingUpdate.data.local.CryptocurrenciesDao
 import com.example.coinRankingUpdate.data.remote.WebService
-import com.example.coinRankingUpdate.core.entity.OrderBy
-import com.example.coinRankingUpdate.core.entity.OrderDirection
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -60,7 +65,6 @@ class DefaultCryptocurrencyRepository @Inject constructor(
                     dao.update(it)
                 }
             }
-
             override fun loadFromDb(): LiveData<Cryptocurrency> {
                 return dao.getCryptocurrencyById(id)
             }
@@ -70,6 +74,28 @@ class DefaultCryptocurrencyRepository @Inject constructor(
             }
 
         }.asLiveData()
+
+    override suspend fun getCryptocurrenciesByQuery(query: String): LiveData<Resource<List<Cryptocurrency>>> {
+        when (val response = safeCall { service.getCryptocurrenciesByQuery(query) }) {
+            is SuccessResult -> {
+                return liveData {
+                    emit(Resource.Success(response.body.data?.cryptocurrencies.orEmpty()))
+                }
+            }
+            is ErrorResult -> {
+                return liveData {
+                    emit(Resource.Error(response.errorMessage, emptyList()))
+                }
+            }
+
+            is EmptyResult -> {
+                return liveData {
+                    emit(Resource.Success(emptyList()))
+                }
+
+            }
+        }
+    }
 
     // when we don't hae database and we don't want to use network bound resource
 /*    override suspend fun getAllCryptocurrencies(): LiveData<Resource<List<Cryptocurrency>>> {

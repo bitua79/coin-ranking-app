@@ -10,12 +10,14 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.coinRankingUpdate.R
 import com.example.coinRankingUpdate.databinding.ActivityMainBinding
+import com.example.coinRankingUpdate.ui.cryptocurrency.CryptocurrencyListFragmentDirections
 import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mi_search -> {
-                // TODO: implement search icon action
+                findNavController(R.id.navHostFragment).navigate(CryptocurrencyListFragmentDirections.actionCryptocurrencyListFragmentToSearchFragment())
             }
         }
         return super.onOptionsItemSelected(item)

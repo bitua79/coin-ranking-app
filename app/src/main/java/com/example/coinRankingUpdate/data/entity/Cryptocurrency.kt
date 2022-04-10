@@ -16,17 +16,17 @@ data class Cryptocurrency(
     @ColumnInfo(name = "id")
     @PrimaryKey
     val uuid: String,
-    val name: String,
-    val symbol: String,
+    val name: String?,
+    val symbol: String?,
     val description: String?,
-    val iconUrl: String,
+    val iconUrl: String?,
     val marketCap: String?,
-    val price: String,
+    val price: String?,
     val change: String?,
-    val rank: Int,
+    val rank: Int?,
     @field:SerializedName("24hVolume")
-    val Volume24H: String,
-    val btcPrice: String,
+    val Volume24H: String?,
+    val btcPrice: String?,
     @Embedded
     val allTimeHigh: AllTimeHigh?
 ):Parcelable

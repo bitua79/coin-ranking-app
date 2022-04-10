@@ -54,8 +54,8 @@ class CryptocurrencyDetailFragment : Fragment() {
 
     private fun collectResult() {
         viewModel.setId(args.cryptocurrency.uuid)
-        viewModel.cryptocurrencyResource.observe(viewLifecycleOwner) { response ->
-            val data = response.handle(
+        viewModel.cryptocurrencyResource.observe(viewLifecycleOwner) { resource ->
+            val data = resource.handle(
                 tag = "CRYPTOCURRENCY_DETAIL",
                 context = requireContext(),
                 errMsg = "failed to load cryptocurrency",
