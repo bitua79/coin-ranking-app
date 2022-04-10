@@ -13,7 +13,7 @@ sealed class Resource<T>(
     class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
 
     fun handle(tag: String, context: Context, errMsg: String): T? {
-        return handle(tag, context, errMsg)
+        return handle(tag, context, errMsg, {}, {})
     }
 
     fun handle(
@@ -32,13 +32,13 @@ sealed class Resource<T>(
             }
             is Success -> {
                 endLoad()
+                Log.i("bita "+tag, data.toString())
                 Log.e(tag, "Resources loaded successfully.")
                 this.data
             }
             is Loading -> {
                 startLoad()
                 Log.e(tag, "Loading resources ...")
-                Toast.makeText(context, "Please wait ...", Toast.LENGTH_SHORT).show()
                 this.data
             }
         }

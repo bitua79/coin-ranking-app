@@ -19,10 +19,8 @@ class CryptocurrencyDetailViewModel @Inject constructor(
     private var id: String = ""
     private val timePeriod: MutableLiveData<String> = MutableLiveData()
 
-    val cryptocurrencyResource: LiveData<Resource<Cryptocurrency>> = refreshing.switchMap {
-        liveData {
-            emitSource(getCryptocurrency(id, timePeriod.value ?: "24h"))
-        }
+    fun setId(id: String) {
+        this.id = id
     }
 
     fun setTimePeriod(timePeriod: String) {
@@ -30,8 +28,9 @@ class CryptocurrencyDetailViewModel @Inject constructor(
         refresh()
     }
 
-    fun setId(id: String) {
-        this.id = id
+    val cryptocurrencyResource: LiveData<Resource<Cryptocurrency>> = refreshing.switchMap {
+        liveData {
+            emitSource(getCryptocurrency(id, timePeriod.value ?: "24h"))
+        }
     }
-
 }

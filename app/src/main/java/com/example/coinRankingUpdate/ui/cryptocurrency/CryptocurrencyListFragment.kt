@@ -119,8 +119,8 @@ class CryptocurrencyListFragment : Fragment() {
     }
 
     private fun collectResult() {
-        viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) { response ->
-            val data = response.handle(
+        viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) { resource ->
+            val data = resource.handle(
                 tag = "CRYPTOCURRENCY_LIST",
                 context = requireContext(),
                 errMsg = "failed to load cryptocurrencies",

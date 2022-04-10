@@ -21,4 +21,9 @@ interface WebService {
         @Path("uuid") uuid: String,
         @Query("timePeriod") timePeriod: String
     ): Response<APIResponse<CryptocurrencyResponse>>
+
+    @GET("search-suggestions")
+    suspend fun getCryptocurrenciesByQuery(
+        @Query("query") query: String
+    ):Response<APIResponse<CryptocurrenciesResponse>>
 }

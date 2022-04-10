@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_cryptocurrencyListFragment_to_cryptocurrencyDetailFragment"
             app:destination="@id/cryptocurrencyDetailFragment" />
+        <action
+            android:id="@+id/action_cryptocurrencyListFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/cryptocurrencyDetailFragment"
@@ -22,5 +25,14 @@
         <argument
             android:name="cryptocurrency"
             app:argType="com.example.coinRankingUpdate.data.entity.Cryptocurrency" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.coinRankingUpdate.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_cryptocurrencyDetailFragment"
+            app:destination="@id/cryptocurrencyDetailFragment" />
     </fragment>
 </navigation>
