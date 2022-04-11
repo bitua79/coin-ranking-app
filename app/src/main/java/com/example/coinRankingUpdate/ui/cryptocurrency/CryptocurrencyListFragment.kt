@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coinRankingUpdate.R
 import com.example.coinRankingUpdate.core.entity.OrderDirection
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.BookmarkEntity
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
+import com.example.coinRankingUpdate.ui.bookmark.BookmarkViewModel
 import com.example.coinRankingUpdate.ui.gone
 import com.example.coinRankingUpdate.ui.setSpinner
 import com.example.coinRankingUpdate.ui.visible
@@ -23,7 +26,8 @@ class CryptocurrencyListFragment : Fragment() {
 
     private lateinit var binding: FragmentCryptocurrencyListBinding
     private lateinit var listAdapter: CryptocurrencyListAdapter
-    private val viewModel: CryptocurrencyListViewModel by viewModels()
+    private val cryptocurrencyListViewModel: CryptocurrencyListViewModel by viewModels()
+    private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
 
     private var isPriceAsc = false
     private var isMarketCapAsc = true
@@ -46,7 +50,7 @@ class CryptocurrencyListFragment : Fragment() {
         collectResult()
     }
 
-    private fun initViews(){
+    private fun initViews() {
         ascIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up)
         descIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down)
         setupAdapter()
@@ -56,7 +60,7 @@ class CryptocurrencyListFragment : Fragment() {
             binding.spinnerTime,
             R.array.times
         ) {
-            viewModel.setTimePeriod(it)
+            cryptocurrencyListViewModel.setTimePeriod(it)
         }
         setupRecyclerview()
     }
@@ -68,11 +72,14 @@ class CryptocurrencyListFragment : Fragment() {
             },
             onItemBookmarked = {
                 onItemBookmarked(it)
+            },
+            onItemUnBookmarked = {
+                onItemUnBookmarked(it)
             }
         )
     }
 
-    private fun onItemClicked(crypto: Cryptocurrency) {
+    private fun onItemClicked(crypto: CryptocurrencyEntity) {
         findNavController().navigate(
             CryptocurrencyListFragmentDirections.actionCryptocurrencyListFragmentToCryptocurrencyDetailFragment(
                 crypto
@@ -80,8 +87,12 @@ class CryptocurrencyListFragment : Fragment() {
         )
     }
 
-    private fun onItemBookmarked(crypto: Cryptocurrency) {
-        //TODO: implement bookmark action
+    private fun onItemBookmarked(crypto: CryptocurrencyEntity) {
+        bookmarkViewModel.bookmark(BookmarkEntity(crypto.uuid))
+    }
+
+    private fun onItemUnBookmarked(crypto: CryptocurrencyEntity) {
+        bookmarkViewModel.unBookmark(crypto.uuid)
     }
 
     private fun setupRecyclerview() {
@@ -96,10 +107,10 @@ class CryptocurrencyListFragment : Fragment() {
             setOnClickListener {
                 isPriceAsc = !isPriceAsc
                 closeIcon = if (isPriceAsc) {
-                    viewModel.setPriceFilter(OrderDirection.ASC)
+                    cryptocurrencyListViewModel.setPriceFilter(OrderDirection.ASC)
                     ascIcon
                 } else {
-                    viewModel.setPriceFilter(OrderDirection.DESC)
+                    cryptocurrencyListViewModel.setPriceFilter(OrderDirection.DESC)
                     descIcon
                 }
             }
@@ -108,10 +119,10 @@ class CryptocurrencyListFragment : Fragment() {
             setOnClickListener {
                 isMarketCapAsc = !isMarketCapAsc
                 closeIcon = if (isMarketCapAsc) {
-                    viewModel.setMarketCapFilter(OrderDirection.ASC)
+                    cryptocurrencyListViewModel.setMarketCapFilter(OrderDirection.ASC)
                     ascIcon
                 } else {
-                    viewModel.setMarketCapFilter(OrderDirection.DESC)
+                    cryptocurrencyListViewModel.setMarketCapFilter(OrderDirection.DESC)
                     descIcon
                 }
             }
@@ -119,7 +130,7 @@ class CryptocurrencyListFragment : Fragment() {
     }
 
     private fun collectResult() {
-        viewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) { resource ->
+        cryptocurrencyListViewModel.cryptocurrenciesResource.observe(viewLifecycleOwner) { resource ->
             val data = resource.handle(
                 tag = "CRYPTOCURRENCY_LIST",
                 context = requireContext(),
@@ -128,9 +139,8 @@ class CryptocurrencyListFragment : Fragment() {
                 endLoad = { endLoad() }
             )
             listAdapter.submitList(data.orEmpty())
-            binding.rvCryptocurrency.smoothScrollToPosition(0)
         }
-        viewModel.refresh()
+        cryptocurrencyListViewModel.refresh()
     }
 
     private fun startLoad() {

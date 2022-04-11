@@ -9,7 +9,7 @@
 
         <variable
             name="cryptocurrency"
-            type="com.example.coinRankingUpdate.data.entity.Cryptocurrency" />
+            type="com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity" />
 
         <variable
             name="isBtc"
@@ -84,8 +84,8 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_bookmark"
                 android:layout_width="wrap_content"
+                app:bookmarkIcon="@{cryptocurrency}"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_bookmark_outline"
                 app:layout_constraintBottom_toBottomOf="@id/gl_logo_center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/gl_logo_center" />

@@ -27,7 +27,6 @@
     <string name="format_million">%s million</string>
     <string name="format_k">%s k</string>
     <string name="label_cryptocurrency">cryptocurrency</string>
-    <string name="search">search</string>
 
     <string-array name="array_limitedTimes">
         <item>24h</item>
@@ -49,6 +48,6 @@
         <item>1y</item>
         <item>3y</item>
         <item>5y</item>
-
     </string-array>
+
 </resources>

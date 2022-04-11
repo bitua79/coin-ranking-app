@@ -12,35 +12,41 @@ import com.example.coinRankingUpdate.core.utils.EmptyResult
 import com.example.coinRankingUpdate.core.utils.ErrorResult
 import com.example.coinRankingUpdate.core.utils.SuccessResult
 import com.example.coinRankingUpdate.core.utils.safeCall
+import com.example.coinRankingUpdate.data.entity.BookmarkEntity
 import com.example.coinRankingUpdate.data.entity.CryptocurrenciesResponse
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.data.entity.CryptocurrencyResponse
+import com.example.coinRankingUpdate.data.local.BookmarkDao
 import com.example.coinRankingUpdate.data.local.CryptocurrenciesDao
+import com.example.coinRankingUpdate.data.relation.BookmarkedCrypto
 import com.example.coinRankingUpdate.data.remote.WebService
 import retrofit2.Response
 import javax.inject.Inject
 
+
+
 class DefaultCryptocurrencyRepository @Inject constructor(
     private val service: WebService,
-    private val dao: CryptocurrenciesDao
+    private val cryptocurrencyDao: CryptocurrenciesDao,
+    private val bookmarkDao: BookmarkDao,
 ) : CryptocurrencyRepository {
 
     override fun getAllCryptocurrencies(
         timePeriod: String,
         orderBy: OrderBy,
         orderDirection: OrderDirection
-    ): LiveData<Resource<List<Cryptocurrency>>> =
+    ): LiveData<Resource<List<CryptocurrencyEntity>>> =
         object :
-            NetworkBoundResource<List<Cryptocurrency>, APIResponse<CryptocurrenciesResponse>>() {
+            NetworkBoundResource<List<CryptocurrencyEntity>, APIResponse<CryptocurrenciesResponse>>() {
             override suspend fun saveCallResult(response: APIResponse<CryptocurrenciesResponse>) {
-                dao.insertAllCryptocurrencies(response.data?.cryptocurrencies.orEmpty())
+                cryptocurrencyDao.insertAllCryptocurrencies(response.data?.cryptocurrencyEntities.orEmpty())
             }
 
-            override fun loadFromDb(): LiveData<List<Cryptocurrency>> {
+            override fun loadFromDb(): LiveData<List<CryptocurrencyEntity>> {
                 val query = SimpleSQLiteQuery(
                     "SELECT * FROM tbl_cryptocurrency ORDER BY CAST(${orderBy.value} AS REAL) ${orderDirection.value} "
                 )
-                return dao.getAllCryptocurrencies(query)
+                return cryptocurrencyDao.getAllCryptocurrencies(query)
             }
 
             override suspend fun createCall(): Response<APIResponse<CryptocurrenciesResponse>> {
@@ -57,16 +63,17 @@ class DefaultCryptocurrencyRepository @Inject constructor(
     override fun getCryptocurrency(
         id: String,
         timePeriod: String
-    ): LiveData<Resource<Cryptocurrency>> =
+    ): LiveData<Resource<CryptocurrencyEntity>> =
         object :
-            NetworkBoundResource<Cryptocurrency, APIResponse<CryptocurrencyResponse>>() {
+            NetworkBoundResource<CryptocurrencyEntity, APIResponse<CryptocurrencyResponse>>() {
             override suspend fun saveCallResult(response: APIResponse<CryptocurrencyResponse>) {
-                response.data?.cryptocurrency?.let {
-                    dao.update(it)
+                response.data?.cryptocurrencyEntity?.let {
+                    cryptocurrencyDao.update(it)
                 }
             }
-            override fun loadFromDb(): LiveData<Cryptocurrency> {
-                return dao.getCryptocurrencyById(id)
+
+            override fun loadFromDb(): LiveData<CryptocurrencyEntity> {
+                return cryptocurrencyDao.getCryptocurrencyById(id)
             }
 
             override suspend fun createCall(): Response<APIResponse<CryptocurrencyResponse>> {
@@ -75,11 +82,11 @@ class DefaultCryptocurrencyRepository @Inject constructor(
 
         }.asLiveData()
 
-    override suspend fun getCryptocurrenciesByQuery(query: String): LiveData<Resource<List<Cryptocurrency>>> {
+    override suspend fun getCryptocurrenciesByQuery(query: String): LiveData<Resource<List<CryptocurrencyEntity>>> {
         when (val response = safeCall { service.getCryptocurrenciesByQuery(query) }) {
             is SuccessResult -> {
                 return liveData {
-                    emit(Resource.Success(response.body.data?.cryptocurrencies.orEmpty()))
+                    emit(Resource.Success(response.body.data?.cryptocurrencyEntities.orEmpty()))
                 }
             }
             is ErrorResult -> {
@@ -95,6 +102,21 @@ class DefaultCryptocurrencyRepository @Inject constructor(
 
             }
         }
+    }
+
+    override fun getBookmarkList(): LiveData<List<BookmarkedCrypto>> =
+        bookmarkDao.getAllBookmark()
+
+
+    override suspend fun doBookmark(bookmarkEntity: BookmarkEntity) {
+        bookmarkDao.insertBookmark(bookmarkEntity)
+        cryptocurrencyDao.bookmarkCryptocurrency(bookmarkEntity.uuid)
+
+    }
+
+    override suspend fun doUnBookmark(id: String) {
+        bookmarkDao.deleteBookmark(id)
+        cryptocurrencyDao.unBookmarkCryptocurrency(id)
     }
 
     // when we don't hae database and we don't want to use network bound resource

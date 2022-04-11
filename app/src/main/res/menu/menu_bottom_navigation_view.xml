@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/bookmarkListPage"
+    <item android:id="@+id/bookmarkFragment"
         android:icon = "@drawable/ic_bookmark"
         android:title = "@string/label_bookmarks" />
 
@@ -9,7 +9,7 @@
         android:icon = "@drawable/ic_home"
         android:title = "@string/label_home" />
 
-    <item android:id="@+id/exchangeListPage"
-        android:icon = "@drawable/ic_exchange"
-        android:title = "@string/label_exchanges" />
+    <item android:id="@+id/searchFragment"
+        android:icon = "@drawable/ic_search"
+        android:title = "@string/label_search" />
 </menu>
