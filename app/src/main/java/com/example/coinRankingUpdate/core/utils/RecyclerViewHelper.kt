@@ -1,4 +1,4 @@
-package com.example.coinRankingUpdate.core
+package com.example.coinRankingUpdate.core.utils
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

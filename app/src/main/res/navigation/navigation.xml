@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/cryptocurrencyListFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/cryptocurrencyListFragment"
@@ -43,5 +43,16 @@
         <action
             android:id="@+id/action_bookmarkFragment_to_cryptocurrencyDetailFragment"
             app:destination="@id/cryptocurrencyDetailFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_splash"
+        android:id="@+id/splashFragment"
+        android:name="com.example.coinRankingUpdate.ui.main.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/cryptocurrencyListFragment"
+            android:id="@+id/action_splashFragment_to_cryptocurrencyListFragment"
+            app:destination="@id/cryptocurrencyListFragment" />
     </fragment>
 </navigation>
