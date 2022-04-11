@@ -1,6 +1,7 @@
 package com.example.coinRankingUpdate.di
 
 import com.example.coinRankingUpdate.core.AppDatabase
+import com.example.coinRankingUpdate.data.local.BookmarkDao
 import com.example.coinRankingUpdate.data.local.CryptocurrenciesDao
 import dagger.Module
 import dagger.Provides
@@ -14,5 +15,9 @@ object DaoModule {
     @Provides
     @Singleton
     fun provideCryptocurrencyDao(db: AppDatabase): CryptocurrenciesDao = db.cryptocurrenciesDao()
+
+    @Provides
+    @Singleton
+    fun provideBookmarkDao(db: AppDatabase): BookmarkDao = db.bookmarkDao()
 
 }

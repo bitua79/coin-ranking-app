@@ -6,8 +6,8 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.example.coinRankingUpdate.core.BaseViewModel
 import com.example.coinRankingUpdate.core.entity.Resource
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
-import com.example.coinRankingUpdate.domain.GetCryptocurrencyByQuery
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
+import com.example.coinRankingUpdate.domain.cryptocurrency.GetCryptocurrencyByQuery
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -27,7 +27,7 @@ class SearchViewModel @Inject constructor(
     }
 
     // Request to server to get coins by query
-    val cryptocurrenciesResource: LiveData<Resource<List<Cryptocurrency>>> = refreshing.switchMap {
+    val cryptocurrenciesResource: LiveData<Resource<List<CryptocurrencyEntity>>> = refreshing.switchMap {
         liveData(Dispatchers.IO) {
             delay(1000)
             emitSource(getCryptocurrencies(query.value.orEmpty()))

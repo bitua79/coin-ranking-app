@@ -1,8 +1,8 @@
-package com.example.coinRankingUpdate.domain
+package com.example.coinRankingUpdate.domain.cryptocurrency
 
 import androidx.lifecycle.LiveData
 import com.example.coinRankingUpdate.core.entity.Resource
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.data.repository.CryptocurrencyRepository
 import com.example.coinRankingUpdate.core.entity.OrderBy
 import com.example.coinRankingUpdate.core.entity.OrderDirection
@@ -15,7 +15,7 @@ class GetAllCryptocurrencies @Inject constructor(
         timePeriod: String,
         orderBy: OrderBy,
         orderDirection: OrderDirection
-    ): LiveData<Resource<List<Cryptocurrency>>> {
+    ): LiveData<Resource<List<CryptocurrencyEntity>>> {
         return repo.getAllCryptocurrencies(
             timePeriod,
             orderBy,

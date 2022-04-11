@@ -9,7 +9,7 @@ import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.coinRankingUpdate.R
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.google.android.material.imageview.ShapeableImageView
 import java.text.DecimalFormat
@@ -69,7 +69,7 @@ fun inUnit(view: TextView, price: String?) {
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter(value = ["priceChangeCrypto", "priceChangeIsBtc"], requireAll = true)
-fun priceChange(view: TextView, crypto: Cryptocurrency, isBtc: Boolean) {
+fun priceChange(view: TextView, crypto: CryptocurrencyEntity, isBtc: Boolean) {
     with(crypto) {
         val price = (if (isBtc) btcPrice else price).toDouble()
         val change = change.toDouble()
@@ -120,4 +120,14 @@ fun bindImageFromUrl(view: ShapeableImageView, imageUrl: String?) {
                 .into(view)
         }
     }
+}
+
+@BindingAdapter("bookmarkIcon")
+fun setBookmarkIconSrc(view: ShapeableImageView, crypto: CryptocurrencyEntity) {
+    val icon = if (crypto.isBookmarked) {
+        R.drawable.ic_bookmark
+    } else
+        R.drawable.ic_bookmark_outline
+
+    view.setImageResource(icon)
 }

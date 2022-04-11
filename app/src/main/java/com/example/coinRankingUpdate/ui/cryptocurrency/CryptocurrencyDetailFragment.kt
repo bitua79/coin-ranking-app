@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.coinRankingUpdate.R
+import com.example.coinRankingUpdate.data.entity.BookmarkEntity
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyDetailBinding
+import com.example.coinRankingUpdate.ui.bookmark.BookmarkViewModel
 import com.example.coinRankingUpdate.ui.gone
 import com.example.coinRankingUpdate.ui.setSpinner
 import com.example.coinRankingUpdate.ui.visible
@@ -19,8 +23,10 @@ class CryptocurrencyDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCryptocurrencyDetailBinding
     private val args by navArgs<CryptocurrencyDetailFragmentArgs>()
+    private lateinit var cryptocurrency: CryptocurrencyEntity
 
     private val viewModel: CryptocurrencyDetailViewModel by viewModels()
+    private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +39,13 @@ class CryptocurrencyDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
+        collectResult()
+
+    }
+
+    private fun initViews() {
+        cryptocurrency = args.cryptocurrency
         binding.cryptocurrency = args.cryptocurrency
 
         setSpinner(
@@ -49,12 +62,19 @@ class CryptocurrencyDetailFragment : Fragment() {
             R.array.array_comparisons
         ) { item -> binding.isBtc = item == "BTC" }
 
-        collectResult()
+        binding.ivBookmark.setOnClickListener {
+            with(cryptocurrency) {
+                if (isBookmarked) {
+                    bookmarkViewModel.unBookmark(uuid)
+                } else
+                    bookmarkViewModel.bookmark(BookmarkEntity(uuid))
+            }
+        }
     }
 
     private fun collectResult() {
         viewModel.setId(args.cryptocurrency.uuid)
-        viewModel.cryptocurrencyResource.observe(viewLifecycleOwner) { resource ->
+        viewModel.cryptocurrencyEntityResource.observe(viewLifecycleOwner) { resource ->
             val data = resource.handle(
                 tag = "CRYPTOCURRENCY_DETAIL",
                 context = requireContext(),
@@ -62,7 +82,10 @@ class CryptocurrencyDetailFragment : Fragment() {
                 startLoad = { startLoad() },
                 endLoad = { endLoad() }
             )
-            data?.let { binding.cryptocurrency = it }
+            data?.let {
+                binding.cryptocurrency = it
+                cryptocurrency = it
+            }
         }
         viewModel.refresh()
     }

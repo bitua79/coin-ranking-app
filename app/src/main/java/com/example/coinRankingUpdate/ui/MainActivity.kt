@@ -30,8 +30,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val topLevelMenuItems = setOf(
-        R.id.cryptocurrencyListFragment
-        //TODO: add bookmark page and search page to bottom navigation
+        R.id.cryptocurrencyListFragment,
+        R.id.searchFragment,
+        R.id.bookmarkFragment
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,20 +79,6 @@ class MainActivity : AppCompatActivity() {
 
         //2- setUp bottom navigation view with nav controller
         binding.bottomNavigationView.setupWithNavController(navController)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_toolbar, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.mi_search -> {
-                findNavController(R.id.navHostFragment).navigate(CryptocurrencyListFragmentDirections.actionCryptocurrencyListFragmentToSearchFragment())
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     //TODO: fix toolbar

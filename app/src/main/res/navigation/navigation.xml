@@ -24,15 +24,24 @@
         tools:layout="@layout/fragment_cryptocurrency_detail">
         <argument
             android:name="cryptocurrency"
-            app:argType="com.example.coinRankingUpdate.data.entity.Cryptocurrency" />
+            app:argType="com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.coinRankingUpdate.ui.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_cryptocurrencyDetailFragment"
+            app:destination="@id/cryptocurrencyDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.example.coinRankingUpdate.ui.bookmark.BookmarkFragment"
+        android:label="BookmarkFragment"
+        tools:layout="@layout/fragment_bookmark">
+        <action
+            android:id="@+id/action_bookmarkFragment_to_cryptocurrencyDetailFragment"
             app:destination="@id/cryptocurrencyDetailFragment" />
     </fragment>
 </navigation>

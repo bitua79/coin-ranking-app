@@ -5,22 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.databinding.ItemCryptocurrencyBinding
 import com.example.coinRankingUpdate.ui.gone
 
 class SearchCryptoListAdapter(
-    private val onItemClicked: (crypto: Cryptocurrency) -> Unit,
+    private val onItemClicked: (crypto: CryptocurrencyEntity) -> Unit,
 
-    ) : ListAdapter<Cryptocurrency, SearchCryptoListAdapter.CryptocurrencyViewHolder>(
+    ) : ListAdapter<CryptocurrencyEntity, SearchCryptoListAdapter.CryptocurrencyViewHolder>(
 
-    object : DiffUtil.ItemCallback<Cryptocurrency>() {
+    object : DiffUtil.ItemCallback<CryptocurrencyEntity>() {
         // Id should be unique
-        override fun areItemsTheSame(oldItem: Cryptocurrency, newItem: Cryptocurrency): Boolean {
+        override fun areItemsTheSame(oldItem: CryptocurrencyEntity, newItem: CryptocurrencyEntity): Boolean {
             return newItem.uuid == oldItem.uuid
         }
 
-        override fun areContentsTheSame(oldItem: Cryptocurrency, newItem: Cryptocurrency): Boolean {
+        override fun areContentsTheSame(oldItem: CryptocurrencyEntity, newItem: CryptocurrencyEntity): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
@@ -37,7 +37,7 @@ class SearchCryptoListAdapter(
         }
 
         //bind data and handle UI changes
-        fun bind(c: Cryptocurrency) {
+        fun bind(c: CryptocurrencyEntity) {
             binding.cryptocurrency = c
             binding.ivBookmark.gone()
             binding.tvPrice.gone()
@@ -62,7 +62,7 @@ class SearchCryptoListAdapter(
         return currentList.size
     }
 
-    public override fun getItem(position: Int): Cryptocurrency {
+    public override fun getItem(position: Int): CryptocurrencyEntity {
         return currentList[position]
     }
 }

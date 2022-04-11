@@ -8,13 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.databinding.FragmentSearchBinding
 import com.example.coinRankingUpdate.ui.doAfterTextChanged
 import com.example.coinRankingUpdate.ui.gone
 import com.example.coinRankingUpdate.ui.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
@@ -23,8 +22,6 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModels()
 
     private lateinit var cryptoCryptoListAdapter: SearchCryptoListAdapter
-
-    private var job: Job = Job()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,7 +88,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun onItemClicked(crypto: Cryptocurrency) {
+    private fun onItemClicked(crypto: CryptocurrencyEntity) {
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToCryptocurrencyDetailFragment(
                 crypto

@@ -3,16 +3,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.coinRankingUpdate.data.entity.Cryptocurrency
+import com.example.coinRankingUpdate.data.entity.BookmarkEntity
+import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
+import com.example.coinRankingUpdate.data.local.BookmarkDao
 import com.example.coinRankingUpdate.data.local.CryptocurrenciesDao
 
 @Database(
     version = 1,
-    entities = [Cryptocurrency::class]
+    entities = [CryptocurrencyEntity::class, BookmarkEntity::class]
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun cryptocurrenciesDao(): CryptocurrenciesDao
+    abstract fun bookmarkDao() : BookmarkDao
 
     companion object {
 

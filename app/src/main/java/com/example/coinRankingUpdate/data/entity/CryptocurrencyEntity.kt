@@ -12,7 +12,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(
     tableName = "tbl_cryptocurrency"
 )
-data class Cryptocurrency(
+data class CryptocurrencyEntity(
     @ColumnInfo(name = "id")
     @PrimaryKey
     val uuid: String,
@@ -28,7 +28,8 @@ data class Cryptocurrency(
     val Volume24H: String?,
     val btcPrice: String?,
     @Embedded
-    val allTimeHigh: AllTimeHigh?
+    val allTimeHigh: AllTimeHigh?,
+    var isBookmarked: Boolean
 ):Parcelable
 
 @Parcelize
