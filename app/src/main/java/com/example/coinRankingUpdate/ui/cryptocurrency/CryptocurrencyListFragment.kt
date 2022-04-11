@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.coinRankingUpdate.R
 import com.example.coinRankingUpdate.core.entity.OrderDirection
+import com.example.coinRankingUpdate.core.initRecyclerViewAdapterDataObserver
+import com.example.coinRankingUpdate.core.isMoved
 import com.example.coinRankingUpdate.data.entity.BookmarkEntity
 import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
@@ -26,11 +29,14 @@ class CryptocurrencyListFragment : Fragment() {
 
     private lateinit var binding: FragmentCryptocurrencyListBinding
     private lateinit var listAdapter: CryptocurrencyListAdapter
+
     private val cryptocurrencyListViewModel: CryptocurrencyListViewModel by viewModels()
     private val bookmarkViewModel: BookmarkViewModel by activityViewModels()
 
+    private lateinit var adapterDataObserver: RecyclerView.AdapterDataObserver
+
     private var isPriceAsc = false
-    private var isMarketCapAsc = true
+    private var isMarketCapAsc = false
 
     private var ascIcon: Drawable? = null
     private var descIcon: Drawable? = null
@@ -99,6 +105,17 @@ class CryptocurrencyListFragment : Fragment() {
         with(binding.rvCryptocurrency) {
             setHasFixedSize(true)
             adapter = listAdapter
+
+            adapterDataObserver = initRecyclerViewAdapterDataObserver { change ->
+                val scrollToTop = isMoved(
+                    layoutManager,
+                    change
+                )
+                if (scrollToTop) {
+                    scrollToPosition(0)
+                }
+            }
+            listAdapter.registerAdapterDataObserver(adapterDataObserver)
         }
     }
 
