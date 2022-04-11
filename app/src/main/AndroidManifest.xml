@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity
-            android:name="com.example.coinRankingUpdate.ui.MainActivity"
+            android:name="com.example.coinRankingUpdate.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

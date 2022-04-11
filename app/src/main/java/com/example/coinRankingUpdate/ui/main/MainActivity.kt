@@ -1,23 +1,21 @@
-package com.example.coinRankingUpdate.ui
+package com.example.coinRankingUpdate.ui.main
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.coinRankingUpdate.R
 import com.example.coinRankingUpdate.databinding.ActivityMainBinding
-import com.example.coinRankingUpdate.ui.cryptocurrency.CryptocurrencyListFragmentDirections
+import com.example.coinRankingUpdate.ui.gone
+import com.example.coinRankingUpdate.ui.visible
 import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         setDarkModeAction()
         setupNavController()
+        setupNavigationUiState()
         setupToolbar()
         setupDrawerLayout()
     }
@@ -79,6 +78,28 @@ class MainActivity : AppCompatActivity() {
 
         //2- setUp bottom navigation view with nav controller
         binding.bottomNavigationView.setupWithNavController(navController)
+    }
+
+    private fun setupNavigationUiState() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            with(binding) {
+                when (destination.id) {
+                    // Hide UI controllers
+                    R.id.cryptocurrencyDetailFragment -> {
+                        bottomNavigationView.gone()
+                        toolbar.visible()
+                    }
+                    R.id.splashFragment -> {
+                        bottomNavigationView.gone()
+                        toolbar.gone()
+                    }
+                    else -> {
+                        bottomNavigationView.visible()
+                        toolbar.visible()
+                    }
+                }
+            }
+        }
     }
 
     //TODO: fix toolbar

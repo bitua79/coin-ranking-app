@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--     TODO: use dynamic data using cryptocurrency variable  -->
         <variable
             name="cryptocurrency"
             type="com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity" />

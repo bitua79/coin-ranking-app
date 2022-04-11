@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinRankingUpdate.R
 import com.example.coinRankingUpdate.core.entity.OrderDirection
-import com.example.coinRankingUpdate.core.initRecyclerViewAdapterDataObserver
-import com.example.coinRankingUpdate.core.isMoved
+import com.example.coinRankingUpdate.core.utils.initRecyclerViewAdapterDataObserver
+import com.example.coinRankingUpdate.core.utils.isMoved
 import com.example.coinRankingUpdate.data.entity.BookmarkEntity
 import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.databinding.FragmentCryptocurrencyListBinding
