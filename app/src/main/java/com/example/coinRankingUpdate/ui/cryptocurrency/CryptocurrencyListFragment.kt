@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -63,6 +62,9 @@ class CryptocurrencyListFragment : Fragment() {
         ascIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up)
         descIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down)
         setupAdapter()
+        setupRecyclerview()
+        setupSwipeRefresh()
+
         setUpChips()
         setSpinner(
             requireContext(),
@@ -71,7 +73,6 @@ class CryptocurrencyListFragment : Fragment() {
         ) {
             cryptocurrencyListViewModel.setTimePeriod(it)
         }
-        setupRecyclerview()
     }
 
     private fun setupAdapter() {
@@ -122,6 +123,12 @@ class CryptocurrencyListFragment : Fragment() {
         }
     }
 
+    private fun setupSwipeRefresh() {
+        binding.srlRefresh.setOnRefreshListener {
+            cryptocurrencyListViewModel.refresh()
+        }
+    }
+
     private fun setUpChips() {
         with(binding.chipPrice) {
             setOnClickListener {
@@ -165,15 +172,15 @@ class CryptocurrencyListFragment : Fragment() {
 
     private fun startLoad() {
         with(binding) {
+            srlRefresh.isRefreshing = true
             rvCryptocurrency.gone()
-            progressbar.visible()
         }
     }
 
     private fun endLoad() {
         with(binding) {
             rvCryptocurrency.visible()
-            progressbar.gone()
+            srlRefresh.isRefreshing = false
         }
     }
 }
