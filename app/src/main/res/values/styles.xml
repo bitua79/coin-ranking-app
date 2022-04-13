@@ -28,7 +28,7 @@
         <!--    popup    -->
         <item name="android:popupBackground">@color/color_surface</item>
         <item name="android:dropDownWidth">@dimen/spacing_21x</item>
-        <item name="android:dropDownSelector">@color/color_spinner_background</item>
+        <item name="android:dropDownSelector">@color/color_chip_background</item>
     </style>
 
     <!--  chip  -->
@@ -41,6 +41,6 @@
         <item name="chipIconSize">@dimen/spacing_4x</item>
         <item name="closeIconTint">?attr/colorOnBackground</item>
         <item name="textStartPadding">@dimen/spacing_4x</item>
-        <item name="chipBackgroundColor">@color/color_spinner_background</item>
+        <item name="chipBackgroundColor">@color/color_chip_background</item>
     </style>
 </resources>

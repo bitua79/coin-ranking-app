@@ -124,10 +124,20 @@ fun bindImageFromUrl(view: ShapeableImageView, imageUrl: String?) {
 
 @BindingAdapter("bookmarkIcon")
 fun setBookmarkIconSrc(view: ShapeableImageView, crypto: CryptocurrencyEntity) {
-    val icon = if (crypto.isBookmarked) {
-        R.drawable.ic_bookmark
-    } else
-        R.drawable.ic_bookmark_outline
+    with(view) {
+        val icon = if (crypto.isBookmarked) {
+            R.drawable.ic_bookmark
+        } else {
+            R.drawable.ic_bookmark_outline
+        }
 
-    view.setImageResource(icon)
+        val color = if (crypto.isBookmarked) {
+            R.color.color_bookmark_selected
+        } else {
+            R.color.color_bookmark_unselected
+        }
+
+        setColorFilter(ContextCompat.getColor(context, color))
+        setImageResource(icon)
+    }
 }

@@ -47,6 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/spacing_8x"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Subtitle1"
                     android:text="@{cryptocurrency.name}"
                     tools:ignore="RtlSymmetry"
                     tools:text="Bit Coin" />
@@ -55,13 +56,13 @@
                     android:id="@+id/tv_abbreviation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Subtitle2"
                     android:paddingEnd="@dimen/spacing_8x"
                     android:text="@{cryptocurrency.symbol}"
                     tools:ignore="RtlSymmetry"
                     tools:text="BTC" />
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/lil_price"
@@ -79,6 +80,7 @@
                     android:layout_gravity="center"
                     android:gravity="end"
                     android:paddingHorizontal="@dimen/spacing_5x"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Caption"
                     app:formatPrice="@{cryptocurrency.price}"
                     tools:text="$ 2,509.75" />
 
@@ -88,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="end"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Overline"
                     android:paddingHorizontal="@dimen/spacing_5x"
                     app:setChange="@{cryptocurrency.change}"
                     tools:text="+9.77%" />
@@ -99,14 +102,15 @@
                 android:layout_width="@dimen/spacing_6x"
                 android:layout_height="@dimen/spacing_6x"
                 android:layout_margin="@dimen/spacing_4x"
-                android:src="@drawable/ic_bookmark_outline"
+                android:tint="@color/color_primary"
+                app:bookmarkIcon="@{cryptocurrency}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/divider_height"
                 android:background="@color/color_divider"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

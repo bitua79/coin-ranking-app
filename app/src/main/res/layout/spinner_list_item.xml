@@ -5,6 +5,6 @@
     android:layout_height="wrap_content"
     android:ellipsize="end"
     android:maxLines="1"
-    android:paddingVertical="6dp"
-    android:paddingHorizontal="16dp"
-    android:textColor="@color/color_on_background"/>
+    android:paddingVertical="@dimen/spacing_2x"
+    android:textAppearance="@style/TextAppearance.MyTheme.chip"
+    android:paddingHorizontal="@dimen/spacing_4x"/>

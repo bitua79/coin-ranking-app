@@ -39,7 +39,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun initViews() {
-        hideAll()
+        hide()
         sendSearchRequest()
         setupRecyclerViewCrypto()
     }
@@ -78,10 +78,10 @@ class SearchFragment : Fragment() {
                 endLoad = { endLoad() }
             )
             if (data.isNullOrEmpty()) {
-                hideAll()
+                hide()
                 cryptoCryptoListAdapter.submitList(emptyList())
             } else {
-                showAll()
+                show()
                 val list = resource.data.orEmpty()
                 cryptoCryptoListAdapter.submitList(list)
             }
@@ -96,13 +96,11 @@ class SearchFragment : Fragment() {
         )
     }
 
-    private fun hideAll() {
-        binding.tvCryptoTitle.gone()
+    private fun hide() {
         binding.rvCryptocurrency.gone()
     }
 
-    private fun showAll() {
-        binding.tvCryptoTitle.visible()
+    private fun show() {
         binding.rvCryptocurrency.visible()
     }
 

@@ -19,5 +19,16 @@
 
     <!--  component colors  -->
     <color name="color_divider">@color/indigo_800</color>
+    <color name="color_chip_background">@color/indigo_300</color>
+    <color name="color_chip_text_color">@color/blue_75</color>
+
+    <color name="color_edit_text_box_border">@color/blue_grey_900</color>
+    <color name="color_edit_text_box_background">@color/blue_grey_900_alpha_23</color>
+
+    <color name="color_bnv_unselected">@color/indigo_300</color>
+    <color name="color_bnv_selected">@color/blue_75</color>
+
+    <color name="color_bookmark_unselected">@color/blue_75</color>
+    <color name="color_bookmark_selected">@color/blue_75</color>
 
 </resources>

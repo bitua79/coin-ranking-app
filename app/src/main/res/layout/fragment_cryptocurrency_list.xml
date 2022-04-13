@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_4x"
             android:layout_marginTop="@dimen/spacing_4x"
+            android:textAppearance="@style/TextAppearance.MyTheme.Subtitle1"
             android:text="@string/label_cryptocurrency"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
