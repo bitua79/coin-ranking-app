@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coinRankingUpdate.R
 import com.example.coinRankingUpdate.data.entity.CryptocurrencyEntity
 import com.example.coinRankingUpdate.databinding.ItemCryptocurrencyBinding
 
@@ -49,24 +48,12 @@ class CryptocurrencyListAdapter(
         fun bind(c: CryptocurrencyEntity) {
             with(binding) {
                 cryptocurrency = c
-                with(ivBookmark) {
-                    if (c.isBookmarked) {
-
-                        setOnClickListener {
-                            onItemUnBookmarked(getItem(bindingAdapterPosition))
-                            setImageResource(R.drawable.ic_bookmark_outline)
-                        }
-                        setImageResource(R.drawable.ic_bookmark)
-
-                    } else {
-                        setOnClickListener {
-                            onItemBookmarked(getItem(bindingAdapterPosition))
-                            setImageResource(R.drawable.ic_bookmark)
-                        }
-                        setImageResource(R.drawable.ic_bookmark_outline)
-                    }
+                ivBookmark.setOnClickListener {
+                    if (c.isBookmarked)
+                        onItemUnBookmarked(getItem(bindingAdapterPosition))
+                    else
+                        onItemBookmarked(getItem(bindingAdapterPosition))
                 }
-
             }
         }
     }

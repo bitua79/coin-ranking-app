@@ -15,15 +15,23 @@
     <color name="color_on_background">@color/grey_700</color>
     <color name="color_on_surface">@color/black</color>
     <color name="color_on_error">@color/white</color>
+    <color name="color_on_background_emphasize_medium">@color/grey_600</color>
     <color name="color_body_text">@color/grey_600</color>
 
     <!--  component colors  -->
     <color name="color_divider">@color/grey_900_alpha_8</color>
+    <color name="color_chip_background">@color/blue_75</color>
+    <color name="color_chip_text_color">@color/grey_650</color>
 
-    <color name="color_box_border">@color/grey_400</color>
+    <color name="color_edit_text_box_border">@color/grey_400</color>
+    <color name="color_edit_text_box_background">@color/white</color>
+
     <color name="color_decrease">@color/deep_orange_600</color>
     <color name="color_increase">@color/cyan_600</color>
 
-    <color name="color_spinner_background">@color/blue_75</color>
+    <color name="color_bnv_selected">@color/color_primary_variant</color>
+    <color name="color_bnv_unselected">@color/indigo_a100</color>
 
+    <color name="color_bookmark_unselected">@color/grey_500</color>
+    <color name="color_bookmark_selected">@color/indigo_400</color>
 </resources>

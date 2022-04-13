@@ -10,7 +10,7 @@
             <item>
                 <shape>
                     <corners android:radius="@dimen/spacing_9x" />
-                    <solid android:color="@color/color_spinner_background"/>
+                    <solid android:color="@color/color_chip_background"/>
                     <padding
                             android:left="@dimen/spacing_4x"
                             android:right="@dimen/spacing_4x"

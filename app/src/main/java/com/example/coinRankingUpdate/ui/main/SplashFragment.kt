@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.coinRankingUpdate.databinding.FragmentSplashBinding
+import com.example.coinRankingUpdate.ui.hideSystemUI
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSplashBinding.inflate(inflater, container, false)
+        hideSystemUI()
         return binding.root
     }
 

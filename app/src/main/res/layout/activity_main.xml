@@ -27,6 +27,8 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
+                    app:itemIconTint="@color/selector_icon_color_bnv"
+                   app:itemTextColor="@color/selector_icon_color_bnv"
                     android:id="@+id/bottom_navigation_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
