@@ -3,77 +3,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_crypto_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_4x"
-            android:layout_marginTop="@dimen/spacing_4x"
-            android:textAppearance="@style/TextAppearance.MyTheme.Subtitle1"
-            android:text="@string/label_cryptocurrency"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_4x"
-            android:text="@string/label_price"
-            app:closeIcon="@drawable/ic_arrow_down"
-            app:closeIconVisible="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_crypto_title" />
-
-        <Spinner
-            android:id="@+id/spinner_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/spacing_4x"
-            android:overlapAnchor="false"
-            android:singleLine="true"
-            app:layout_constraintBottom_toBottomOf="@id/chip_price"
-            app:layout_constraintEnd_toStartOf="@id/chip_marketCap"
-            app:layout_constraintStart_toEndOf="@id/chip_price"
-            app:layout_constraintTop_toTopOf="@id/chip_price" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_marketCap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_4x"
-            android:text="@string/label_market_cap"
-            app:closeIcon="@drawable/ic_arrow_down"
-            app:closeIconVisible="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/chip_price" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_cryptocurrency"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/spacing_4x"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip_price"
-            tools:listitem="@layout/item_cryptocurrency" />
+            android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_crypto_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4x"
+                android:layout_marginTop="@dimen/spacing_4x"
+                android:text="@string/label_cryptocurrency"
+                android:textAppearance="@style/TextAppearance.MyTheme.Subtitle1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_4x"
+                android:text="@string/label_price"
+                app:closeIcon="@drawable/ic_arrow_down"
+                app:closeIconVisible="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_crypto_title" />
+
+            <Spinner
+                android:id="@+id/spinner_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/spacing_4x"
+                android:overlapAnchor="false"
+                android:singleLine="true"
+                app:layout_constraintBottom_toBottomOf="@id/chip_price"
+                app:layout_constraintEnd_toStartOf="@id/chip_marketCap"
+                app:layout_constraintStart_toEndOf="@id/chip_price"
+                app:layout_constraintTop_toTopOf="@id/chip_price" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_marketCap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_4x"
+                android:text="@string/label_market_cap"
+                app:closeIcon="@drawable/ic_arrow_down"
+                app:closeIconVisible="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/chip_price" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cryptocurrency"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/spacing_4x"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chip_price"
+                tools:listitem="@layout/item_cryptocurrency" />
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>
