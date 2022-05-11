@@ -51,7 +51,7 @@
         android:label="SplashFragment" >
         <action
             app:popUpToInclusive="true"
-            app:popUpTo="@id/cryptocurrencyListFragment"
+            app:popUpTo="@id/splashFragment"
             android:id="@+id/action_splashFragment_to_cryptocurrencyListFragment"
             app:destination="@id/cryptocurrencyListFragment" />
     </fragment>

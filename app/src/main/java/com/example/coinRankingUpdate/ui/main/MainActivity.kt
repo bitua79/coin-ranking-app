@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.coinRankingUpdate.R
@@ -18,14 +19,17 @@ import com.example.coinRankingUpdate.ui.gone
 import com.example.coinRankingUpdate.ui.visible
 import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var btnSwitchTheme: SwitchMaterial
     private lateinit var navController: NavController
+
+    lateinit var configuration :AppBarConfiguration
 
     private val topLevelMenuItems = setOf(
         R.id.cryptocurrencyListFragment,
@@ -36,12 +40,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        setDefaultLanguage()
         setDarkModeAction()
         setupNavController()
         setupNavigationUiState()
         setupToolbar()
-        setupDrawerLayout()
     }
 
     private fun setDarkModeAction() {
@@ -59,17 +62,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDrawerLayout() {
-        drawerToggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.toolbar,
-            R.string.label_action_open_drawer,
-            R.string.label_action_close
-        )
-        binding.drawerLayout.addDrawerListener(drawerToggle)
-    }
-
     private fun setupNavController() {
         //1- get navController from navHostFragment
         val navHostFragment =
@@ -78,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         //2- setUp bottom navigation view with nav controller
         binding.bottomNavigationView.setupWithNavController(navController)
+
     }
 
     private fun setupNavigationUiState() {
@@ -87,15 +80,15 @@ class MainActivity : AppCompatActivity() {
                     // Hide UI controllers
                     R.id.cryptocurrencyDetailFragment -> {
                         bottomNavigationView.gone()
-                        toolbar.visible()
+//                        toolbar.visible()
                     }
                     R.id.splashFragment -> {
                         bottomNavigationView.gone()
-                        toolbar.gone()
+//                        toolbar.gone()
                     }
                     else -> {
                         bottomNavigationView.visible()
-                        toolbar.visible()
+//                        toolbar.visible()
                     }
                 }
             }
@@ -104,30 +97,34 @@ class MainActivity : AppCompatActivity() {
 
     //TODO: fix toolbar
     private fun setupToolbar() {
-        setSupportActionBar(binding.toolbar)
 
-        val configuration = AppBarConfiguration.Builder(topLevelMenuItems)
+        configuration = AppBarConfiguration.Builder(topLevelMenuItems)
             .setOpenableLayout(binding.drawerLayout)
             .build()
+        setSupportActionBar(binding.toolbar)
+
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayShowHomeEnabled(true)
         setupActionBarWithNavController(navController, configuration)
+//        binding.toolbar.setupWithNavController(navController, configuration)
     }
 
     // NavigateUp action an appbar
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
+    override fun onSupportNavigateUp(): Boolean { // setup appBarConfiguration for back arrow
+        return NavigationUI.navigateUp(navController, configuration)
     }
 
     // Sync navigation hamburger button
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        drawerToggle.syncState()
-    }
+//    override fun onPostCreate(savedInstanceState: Bundle?) {
+//        super.onPostCreate(savedInstanceState)
+//        drawerToggle.syncState()
+//    }
 
     // Set new configuration to drawer layout
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        drawerToggle.onConfigurationChanged(newConfig)
-    }
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//        drawerToggle.onConfigurationChanged(newConfig)
+//    }
 
     // If drawer layout was opened close it by back pressed, if not pop back stack
     override fun onBackPressed() {
@@ -136,5 +133,18 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun setDefaultLanguage() {
+        val languageToLoad = "en" // your language
+
+        val locale = Locale(languageToLoad)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        baseContext.resources.updateConfiguration(
+            config,
+            baseContext.resources.displayMetrics
+        )
     }
 }
