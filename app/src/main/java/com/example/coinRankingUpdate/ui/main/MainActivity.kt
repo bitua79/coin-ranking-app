@@ -80,15 +80,15 @@ class MainActivity : AppCompatActivity() {
                     // Hide UI controllers
                     R.id.cryptocurrencyDetailFragment -> {
                         bottomNavigationView.gone()
-//                        toolbar.visible()
+                        toolbar.visible()
                     }
                     R.id.splashFragment -> {
                         bottomNavigationView.gone()
-//                        toolbar.gone()
+                        toolbar.gone()
                     }
                     else -> {
                         bottomNavigationView.visible()
-//                        toolbar.visible()
+                        toolbar.visible()
                     }
                 }
             }
@@ -102,29 +102,13 @@ class MainActivity : AppCompatActivity() {
             .setOpenableLayout(binding.drawerLayout)
             .build()
         setSupportActionBar(binding.toolbar)
-
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setDisplayShowHomeEnabled(true)
         setupActionBarWithNavController(navController, configuration)
-//        binding.toolbar.setupWithNavController(navController, configuration)
     }
 
     // NavigateUp action an appbar
     override fun onSupportNavigateUp(): Boolean { // setup appBarConfiguration for back arrow
         return NavigationUI.navigateUp(navController, configuration)
     }
-
-    // Sync navigation hamburger button
-//    override fun onPostCreate(savedInstanceState: Bundle?) {
-//        super.onPostCreate(savedInstanceState)
-//        drawerToggle.syncState()
-//    }
-
-    // Set new configuration to drawer layout
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        super.onConfigurationChanged(newConfig)
-//        drawerToggle.onConfigurationChanged(newConfig)
-//    }
 
     // If drawer layout was opened close it by back pressed, if not pop back stack
     override fun onBackPressed() {
