@@ -1,5 +1,5 @@
 
-# CoinRanking App
+# Coin Ranking App
 CoinRanking is an Android application that allows users to explore various cryptocurrencies. It features a clean, intuitive UI and offers functionality such as bookmarking, searching, and viewing detailed information about cryptocurrencies. The app supports both light and dark themes and provides a seamless user experience with efficient data handling using modern Android development best practices.
 
 ## Features
